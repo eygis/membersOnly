@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id='container'>
+      <div id='userPanel'>
+        <h1><%= title %></h1>
+        <% if (user) { %>
+          <h2>Welcome, <%= user.username %></h2>
+          <a href='/log-out'>Log Out</a>
+        <% } else { %>
+        <p>Welcome to the <%= title %>!</p>
+        <h2>Please Log In</h2>
+        <form action="/log-in" method="POST">
+          <label for="username">Username</label>
+          <input name="username" placeholder="username" type="text" />
+          <label for="password">Password</label>
+          <input name="password" placeholder="password" type="password" />
+          <button>Log In</button>
+        </form>
+        <a id='sign-up-button' href='/sign-up'><button id='sign-up-button'>Create New Account</button></a>
+        <% } %>
+      </div>
+      <div id='messagesPanel'>
+        <% if (user) { %>
+        <div id='createMessage'><a href='/create-message'><button>Create Message</button></a></div>
+        <div id='messages'>
+          <% messages.forEach(message => { %>
+              <div class='message'>
+                <div class='information'><span><%= (user.membership_status) ? message.author + ', ' + message.timestamp.toLocaleString() : 'Anonymous' %></span><form method='POST' action='/delete'><input name="message_id" type="hidden" required="true" value='<%= message._id %>'><%- (user.admin_status) ? '<button type="submit">Delete Post</button>' : '' %></input></form></div>
+                <div class='text'><p><%= message.message %></p></div>
+              </div>
+          <% }); %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

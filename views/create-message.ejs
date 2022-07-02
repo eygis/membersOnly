@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% if (user) { %>
+    <h1><%= title %></h1>
+    <form action='' method='POST'>
+        <label for='title'>
+            Title:<input name='title' placeholder='title' type='text' />
+        </label>
+        <label for='message'>
+            Message:<input name='message' placeholder='message' type='text' />
+        </label>
+        <button type='submit'>Submit</button>
+    </form>
+    <% } else { %>
+        <p>please log in!</p>
+    <% } %>
+  </body>
+</html>
